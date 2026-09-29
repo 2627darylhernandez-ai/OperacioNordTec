@@ -20,3 +20,11 @@ git pull
 git --version
 git init
 ```
+## **Tabla de comandos Git**
+| Comandos  | Que hacen? |
+| ------------- | ------------- |
+| git init  | Crea un repositorio en Git vacío  |
+| git add  | Prepara tus cambios para ser gurdados  |
+| git status  | Muestra el estado actual de tu repositorio  |
+| git --version  | Muestra la version de tu Git  |
+| git pull   | Descarga los cambios más recientes  |
