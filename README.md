@@ -1,0 +1,1 @@
+# operació NordTec
