@@ -11,7 +11,7 @@
 ## **Link**
 La tarea se entrega en [Moodle](https://educaciodigital.cat/iticbcn/moodle/course/view.php?id=3047)
 ## **Comandos usados el dia de hoy**
-'''
+```
 git status
 git add
 git commit -m
@@ -19,3 +19,4 @@ git push -u
 git pull
 git --version
 git init
+```
