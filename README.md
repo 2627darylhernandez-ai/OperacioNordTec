@@ -1,15 +1,15 @@
 # Operació NordTec
 **Daryl Hernández ASIX1B**
 
-## Índex
+## :pushpin: Índex
 - [Operació NordTec](#operació-nordtec)
-  - [Índex](#índex)
+  - [:pushpin: Índex](#pushpin-índex)
   - [**Estado del proyecto**](#estado-del-proyecto)
   - [**:hammer\_and\_wrench: Arquitectura**](#hammer_and_wrench-arquitectura)
   - [**:gear: Configuraciones**](#gear-configuraciones)
   - [**Incidéncias y soluciones**](#incidéncias-y-soluciones)
   - [**Decisiones técnicas**](#decisiones-técnicas)
-  - [**Reflexiones técnicas**](#reflexiones-técnicas)
+  - [\*\* :memo::pencil:Reflexiones técnicas\*\*](#-memopencilreflexiones-técnicas)
 
 ## **Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
@@ -33,4 +33,4 @@
 > Urgente
 ## **Decisiones técnicas**
 
-## **Reflexiones técnicas**
+## ** :memo::pencil:Reflexiones técnicas**
