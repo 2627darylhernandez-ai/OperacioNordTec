@@ -13,7 +13,7 @@
 
 ## **Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
-- :arrow_counterclockwise: Fase 2 del proyecto
+- :arrows_counterclockwise: Fase 2 del proyecto
 ## **Arquitectura**
 
 ## **Configuraciones**
