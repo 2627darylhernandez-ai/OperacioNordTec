@@ -23,14 +23,14 @@
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
 
-[!TIP]
-Bien
+> [!TIP]
+> Bien
 
-[!CAUTION]
-Revisar
+> [!CAUTION]
+> Revisar
 
-[!WARNING]
-Urgente
+> [!WARNING]
+> Urgente
 ## **Decisiones técnicas**
 
 ## **Reflexiones técnicas**
