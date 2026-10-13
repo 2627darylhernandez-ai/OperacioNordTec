@@ -10,8 +10,8 @@
   - [**:construction: Incidéncias y soluciones**](#construction-incidéncias-y-soluciones)
   - [**:bulb: Decisiones técnicas**](#bulb-decisiones-técnicas)
   - [**:memo: Reflexiones técnicas**](#memo-reflexiones-técnicas)
-  - [**Tabla de comandos Git**](#tabla-de-comandos-git)
-  - [**Guardar en Github**](#guardar-en-github)
+  - [**:computer: Tabla de comandos Git**](#computer-tabla-de-comandos-git)
+  - [**:file\_folder: Guardar en Github**](#file_folder-guardar-en-github)
 
 ## **:traffic_light: Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
@@ -37,7 +37,7 @@
 
 ## **:memo: Reflexiones técnicas**
 
-## **Tabla de comandos Git**
+## **:computer: Tabla de comandos Git**
 | Comandos  | Que hacen? |
 | ------------- | ------------- |
 | git init  | Crea un repositorio en Git vacío  |
@@ -46,7 +46,7 @@
 | git --version  | Muestra la version de tu Git  |
 | git pull   | Descarga los cambios más recientes  |
 
-## **Guardar en Github**
+## **:file_folder: Guardar en Github**
 1. Guardar archivo ctrl + S
 2. git add (Nombre del archivo) o (.)
 3. git commit -m "mensaje del que es"
