@@ -19,7 +19,7 @@
 ## **Configuraciones**
 
 ## **Incidéncias y soluciones**
-| Mensaje de error:bangbang: | Cuando:question: | Causa | Solución | Detactada |
+| Mensaje de error :bangbang: | Cuando :question: | Causa | Solución | Detactada |
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
 
