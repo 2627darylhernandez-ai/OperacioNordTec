@@ -5,8 +5,8 @@
 - [Operació NordTec](#operació-nordtec)
   - [Índex](#índex)
   - [**Estado del proyecto**](#estado-del-proyecto)
-  - [**Arquitectura**](#arquitectura)
-  - [**Configuraciones**](#configuraciones)
+  - [**:hammer\_and\_wrench: Arquitectura**](#hammer_and_wrench-arquitectura)
+  - [**:gear: Configuraciones**](#gear-configuraciones)
   - [**Incidéncias y soluciones**](#incidéncias-y-soluciones)
   - [**Decisiones técnicas**](#decisiones-técnicas)
   - [**Reflexiones técnicas**](#reflexiones-técnicas)
@@ -14,12 +14,12 @@
 ## **Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
 - :arrows_counterclockwise: Fase 2 del proyecto
-## **Arquitectura**
+## **:hammer_and_wrench: Arquitectura**
 
-## **Configuraciones**
+## **:gear: Configuraciones**
 
 ## **Incidéncias y soluciones**
-| Mensaje de error :bangbang: | Cuando :question: | Causa | Solución | Detactada |
+| Mensaje de error :bangbang: | Cuando :question: | Causa :detective: | Solución :o: | Detactada :mag_right: |
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
 
