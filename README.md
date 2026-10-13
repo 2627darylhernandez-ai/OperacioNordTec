@@ -1,9 +1,9 @@
 # Operació NordTec
-## *Daryl Hernández ASIX1B*
-## **Índex**
+# *Daryl Hernández ASIX1B*
+# **Índex**
 - [Operació NordTec](#operació-nordtec)
-  - [*Daryl Hernández ASIX1B*](#daryl-hernández-asix1b)
-  - [**Índex**](#índex)
+- [*Daryl Hernández ASIX1B*](#daryl-hernández-asix1b)
+- [**Índex**](#índex)
   - [**Estado del proyecto**](#estado-del-proyecto)
   - [**Arquitectura**](#arquitectura)
   - [**Configuraciones**](#configuraciones)
