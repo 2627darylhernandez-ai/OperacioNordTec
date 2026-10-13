@@ -10,6 +10,8 @@
   - [**:construction: Incidéncias y soluciones**](#construction-incidéncias-y-soluciones)
   - [**:bulb: Decisiones técnicas**](#bulb-decisiones-técnicas)
   - [**:memo: Reflexiones técnicas**](#memo-reflexiones-técnicas)
+  - [**Tabla de comandos Git**](#tabla-de-comandos-git)
+  - [**Guardar en Github**](#guardar-en-github)
 
 ## **:traffic_light: Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
@@ -34,3 +36,18 @@
 ## **:bulb: Decisiones técnicas**
 
 ## **:memo: Reflexiones técnicas**
+
+## **Tabla de comandos Git**
+| Comandos  | Que hacen? |
+| ------------- | ------------- |
+| git init  | Crea un repositorio en Git vacío  |
+| git add  | Prepara tus cambios para ser gurdados  |
+| git status  | Muestra el estado actual de tu repositorio  |
+| git --version  | Muestra la version de tu Git  |
+| git pull   | Descarga los cambios más recientes  |
+
+## **Guardar en Github**
+1. Guardar archivo ctrl + S
+2. git add (Nombre del archivo) o (.)
+3. git commit -m "mensaje del que es"
+4. git push -u (Pasarlo al Github)
