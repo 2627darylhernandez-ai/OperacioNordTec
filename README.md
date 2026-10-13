@@ -19,7 +19,7 @@
 ## **:gear: Configuraciones**
 
 ## **Incidéncias y soluciones**
-| Mensaje de error :bangbang: | Cuando :question: | Causa :detective: | Solución :o: | Detactada :mag_right: |
+| Mensaje de error :bangbang: | Cuando :question: | Causa :mag_right: | Solución :o: | Detactada :detective: |
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
 
