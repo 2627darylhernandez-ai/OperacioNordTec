@@ -12,13 +12,16 @@
   - [**Reflexiones técnicas**](#reflexiones-técnicas)
 
 ## **Estado del proyecto**
-
+- [X] Fase 1 del proyecto
+- [] Fase 2 del proyecto
 ## **Arquitectura**
 
 ## **Configuraciones**
 
 ## **Incidéncias y soluciones**
-
+| Mensaje de error | Cuando | Causa | Solución | Detactada |
+| ---------------- | ------ | ----- | -------- | --------- |
+| . | . | . | . | . |
 ## **Decisiones técnicas**
 
 ## **Reflexiones técnicas**
