@@ -22,6 +22,8 @@
 | Mensaje de error | Cuando | Causa | Solución | Detactada |
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
+[!GOOD]
+Bien
 ## **Decisiones técnicas**
 
 ## **Reflexiones técnicas**
