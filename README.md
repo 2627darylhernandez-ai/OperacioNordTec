@@ -1,5 +1,34 @@
-# operació NordTec
-## *Daryl Hernández*
+# Operació NordTec
+## *Daryl Hernández ASIX1B*
+## **Índex**
+- [Operació NordTec](#operació-nordtec)
+  - [*Daryl Hernández ASIX1B*](#daryl-hernández-asix1b)
+  - [**Índex**](#índex)
+  - [**Estado del proyecto**](#estado-del-proyecto)
+  - [**Arquitectura**](#arquitectura)
+  - [**Configuraciones**](#configuraciones)
+  - [**Incidéncias y soluciones**](#incidéncias-y-soluciones)
+  - [**Decisiones técnicas**](#decisiones-técnicas)
+  - [**Reflexiones técnicas**](#reflexiones-técnicas)
+  - [**Lista**](#lista)
+  - [**Lista de tareas**](#lista-de-tareas)
+  - [**Link**](#link)
+  - [**Comandos usados el dia de hoy**](#comandos-usados-el-dia-de-hoy)
+  - [**Tabla de comandos Git**](#tabla-de-comandos-git)
+
+## **Estado del proyecto**
+
+## **Arquitectura**
+
+## **Configuraciones**
+
+## **Incidéncias y soluciones**
+
+## **Decisiones técnicas**
+
+## **Reflexiones técnicas**
+
+
 ## **Lista**
 1. Guardar archivo ctrl + S
 2. git add (Nombre del archivo) o (.)
