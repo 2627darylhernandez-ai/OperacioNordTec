@@ -9,7 +9,7 @@
   - [**:gear: Configuraciones**](#gear-configuraciones)
   - [**Incidéncias y soluciones**](#incidéncias-y-soluciones)
   - [**Decisiones técnicas**](#decisiones-técnicas)
-  - [\*\* :memo::pencil:Reflexiones técnicas\*\*](#-memopencilreflexiones-técnicas)
+  - [\*\* :memo:pencil: Reflexiones técnicas\*\*](#-memopencil-reflexiones-técnicas)
 
 ## **Estado del proyecto**
 - :white_check_mark: Fase 1 del proyecto
@@ -33,4 +33,4 @@
 > Urgente
 ## **Decisiones técnicas**
 
-## ** :memo::pencil:Reflexiones técnicas**
+## ** :memo:pencil: Reflexiones técnicas**
