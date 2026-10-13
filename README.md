@@ -22,8 +22,15 @@
 | Mensaje de error | Cuando | Causa | Solución | Detactada |
 | ---------------- | ------ | ----- | -------- | --------- |
 | . | . | . | . | . |
-[!GOOD]
+
+[!TIP]
 Bien
+
+[!CAUTION]
+Revisar
+
+[!WARNING]
+Urgente
 ## **Decisiones técnicas**
 
 ## **Reflexiones técnicas**
