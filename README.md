@@ -67,13 +67,12 @@
 
 ## :hammer_and_wrench: Arquitectura
 ```text
-proyecto/
-├── index.html
+LDM_html/
+├── ejercicio1.html
 ├── css/
 │   └── style.css
 ├── img/
 │   └── gta.jpg
-└── README.md
 ```
 
 ### Estructura de la página (HTML)
