@@ -72,7 +72,7 @@ LDM_html/
 ├── css/
 │   └── style.css
 ├── img/
-│   └── gta.jpg
+    └── gta.jpg
 ```
 
 ### Estructura de la página (HTML)
