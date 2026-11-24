@@ -22,7 +22,7 @@
 
 ## RA1: Firewall y red en Linux
 
-Laboratorio `Lab_0373_firewall`: una máquina Linux con **cinco tarjetas de red** que actúa como **router y firewall** entre Internet y tres redes internas.
+Laboratorio `Lab_0373_firewall`: una máquina Linux con **cinco tarjetas de red** que actúa como **router y firewall** entre Internet y tres redes internas. Se accede a la máquina por navegador con IsardVDI (noVNC).
 
 ### Arquitectura de red
 ```text
@@ -46,97 +46,138 @@ enp3s0  enp4s0      enp5s0
 | `enp5s0` | LAN | `192.168.20.1/24` | `dhcp4: false` + IP fija |
 
 ### Configuración de red (netplan)
-Archivo editado con `nano`: `50-cloud-init.yaml` (en `/etc/netplan/`).
 
-```yaml
-network:
-    version: 2
-    ethernets:
-        enp1s0:
-            dhcp4: true
-        enp3s0:            # kali
-            dhcp4: true
-            addresses:
-                - 10.0.0.1/24
-        enp4s0:            # dmz
-            dhcp4: false
-            addresses:
-                - 192.168.10.1/24
-        enp5s0:            # lan
-            dhcp4: false
-            addresses:
-                - 192.168.20.1/24
-```
-- `network` / `version: 2`: formato de netplan.
-- `ethernets`: lista de tarjetas de red, cada una con su nombre.
-- `dhcp4: true`: la IP la da un servidor DHCP. `false`: se configura a mano.
-- `addresses`: IP fija con su máscara (`/24` = `255.255.255.0`).
-- Los `#` son comentarios. Los que hay en el archivo indican la zona de cada red (kali, dmz, lan).
-- **YAML** se indenta con espacios (nunca tabuladores) y un espacio mal puesto rompe el archivo.
-- El aviso del principio dice que cloud-init genera este archivo y que los cambios pueden no persistir. Para evitarlo se crea `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` con `network: {config: disabled}`.
+**Qué es:** el archivo `50-cloud-init.yaml` (en `/etc/netplan/`), que se edita con el editor `nano`. Define las cinco tarjetas de red de la máquina `Lab_0373_firewall`. Tiene 27 líneas.
 
-Para aplicar los cambios:
+**Cabecera (comentarios con `#`)**
+- El aviso dice que el archivo lo genera **cloud-init** y que los cambios hechos aquí pueden perderse al reiniciar.
+- Para evitarlo, se crea `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` con el contenido `network: {config: disabled}`.
+
+**Estructura del YAML**
+| Línea | Significado |
+| --- | --- |
+| `network:` | Inicio de la configuración de red |
+| `version: 2` | Versión del formato de netplan |
+| `ethernets:` | Lista de tarjetas de red cableadas |
+| `enp1s0:` ... `enp5s0:` | Nombre de cada tarjeta (hay 5) |
+| `dhcp4: true / false` | IP automática por DHCP (`true`) o configurada a mano (`false`) |
+| `addresses:` | Lista de IPs fijas, con máscara en formato CIDR |
+| `- 10.0.0.1/24` | IP `10.0.0.1` con máscara `255.255.255.0` |
+
+**Qué hace cada interfaz**
+| Interfaz | Comentario | Configuración | Para qué sirve |
+| --- | --- | --- | --- |
+| `enp1s0` | (sin comentario) | `dhcp4: true` | Conexión a Internet: recibe IP por DHCP. Es la interfaz de salida (`-o enp1s0`) en el script |
+| `enp2s0` | (sin comentario) | `dhcp4: true` | Otra interfaz con DHCP, que el script no utiliza |
+| `enp3s0` | `# kali` | `dhcp4: true` + `10.0.0.1/24` | Red de la máquina Kali (`10.0.0.0/24`) |
+| `enp4s0` | `# dmz` | `dhcp4: false` + `192.168.10.1/24` | Zona DMZ, donde está el servidor web |
+| `enp5s0` | `# lan` | `dhcp4: false` + `192.168.20.1/24` | Red local interna |
+
+**Detalles importantes**
+- El firewall tiene la IP `.1` en cada red interna, así que es la **puerta de enlace** de las máquinas de esa red.
+- Las tres redes internas son distintas (`10.0.0.0/24`, `192.168.10.0/24` y `192.168.20.0/24`), por eso el firewall puede enrutar entre ellas.
+- `enp3s0` tiene `dhcp4: true` y una IP fija a la vez. Lo normal sería `false`; conviene revisarlo.
+- YAML se indenta con **espacios** (nunca tabuladores), y un espacio mal puesto rompe el archivo.
+
+Para aplicar los cambios y comprobarlos:
 ```bash
 sudo netplan apply
+ip a
 ```
 
+---
+
 ### Script del firewall (`firewall.sh`)
-- Se coloca en la máquina `lab_0373_firewall`, en `/home/isard`.
-- Se ejecuta con: `sudo ./firewall.sh` (si da "Permission denied": `chmod +x firewall.sh`).
 
+**Qué es:** el script con las reglas de `iptables` y las instrucciones de la práctica (en catalán):
+- *"Posar aquest arxiu en la màquina lab_0373_firewall en /home/isard"*: el script se guarda en esa carpeta.
+- *"Executar amb: sudo ./firewall.sh"*: se ejecuta con `sudo`, porque `iptables` necesita permisos de administrador. Si da "Permission denied", antes hay que hacer `chmod +x firewall.sh`.
+
+**Explicación línea a línea**
+
+**1. Cabecera**
+| Línea | Significado |
+| --- | --- |
+| `#!/bin/bash` | Indica que el script se ejecuta con Bash |
+
+**2. Limpiar tablas** (`# netejem taules`)
+| Comando | Significado |
+| --- | --- |
+| `iptables -F` | Borra (*flush*) todas las reglas de la tabla `filter` |
+| `iptables -t nat -F` | Borra todas las reglas de la tabla `nat` |
+| `iptables -X` | Elimina las cadenas personalizadas |
+
+Sirve para empezar desde cero y que no se acumulen reglas antiguas cada vez que se ejecuta el script.
+
+**3. Política por defecto** (`# política per defecte`)
+| Comando | Significado |
+| --- | --- |
+| `iptables -P INPUT ACCEPT` | Permite el tráfico que llega al propio firewall |
+| `iptables -P FORWARD ACCEPT` | Permite el tráfico que pasa de una red a otra |
+| `iptables -P OUTPUT ACCEPT` | Permite el tráfico que sale del firewall |
+
+Con las tres en `ACCEPT` **no se bloquea nada**: la política es permisiva.
+
+**4. Salir a Internet** (`# sortir a internet`)
 ```bash
-#!/bin/bash
-
-# netejem taules
-iptables -F
-iptables -t nat -F
-iptables -X
-
-# política per defecte
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-
-# sortir a internet
 iptables -t nat -A POSTROUTING -s 192.168.10.0/24 -o enp1s0 -j MASQUERADE
 iptables -t nat -A POSTROUTING -s 192.168.20.0/24 -o enp1s0 -j MASQUERADE
 iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o enp1s0 -j MASQUERADE
+```
+- `-t nat`: tabla de NAT.
+- `-A POSTROUTING`: añade la regla en la cadena que se aplica **justo antes de que el paquete salga**.
+- `-s 192.168.10.0/24`: solo para paquetes cuyo origen es esa red (DMZ). Las otras dos líneas hacen lo mismo con la LAN y con Kali.
+- `-o enp1s0`: solo para paquetes que salen por la interfaz de Internet.
+- `-j MASQUERADE`: cambia la IP de origen privada por la IP de `enp1s0`.
 
-# publicar el servidor web (DNAT)
+Las IPs privadas no se pueden usar en Internet. Con `MASQUERADE`, las tres redes internas salen con la IP del firewall, y las respuestas vuelven al equipo correcto.
+
+**5. Publicar el servidor web (DNAT)** (`# publicar el servidor web`)
+```bash
 iptables -t nat -A PREROUTING -i enp3s0 -p tcp --dport 80 -j DNAT --to-destination <IP del servidor web>
 iptables -t nat -A PREROUTING -i enp3s0 -p tcp -d 10.0.0.1 --dport 80 -j DNAT ...
 ```
+- `-A PREROUTING`: se aplica **nada más llegar el paquete**, antes de decidir a dónde enrutarlo.
+- `-i enp3s0`: solo para tráfico que entra por la interfaz de la red Kali.
+- `-p tcp --dport 80`: protocolo TCP al puerto 80 (HTTP, la web).
+- `-d 10.0.0.1` (segunda regla): además, solo si el destino es la IP del firewall en esa red.
+- `-j DNAT --to-destination`: cambia la IP de destino por la del servidor web, que está en la DMZ.
+
+Así, cuando Kali pide la web a `10.0.0.1`, el firewall redirige la petición al servidor web real. Kali ve una sola IP y el servidor sigue dentro de la DMZ.
+
 > [!NOTE]
-> Las dos últimas líneas se cortan en la captura. Copia aquí tu versión completa del script.
-
-**Qué hace cada bloque**
-
-| Bloque | Comando | Qué hace |
-| --- | --- | --- |
-| Limpiar | `iptables -F` | Borra todas las reglas de la tabla `filter` |
-| | `iptables -t nat -F` | Borra las reglas de la tabla `nat` |
-| | `iptables -X` | Borra las cadenas creadas por el usuario |
-| Políticas | `-P INPUT/FORWARD/OUTPUT ACCEPT` | Por defecto se **permite todo** el tráfico entrante, reenviado y saliente |
-| Salir a Internet | `-t nat -A POSTROUTING ... -j MASQUERADE` | Las redes internas salen a Internet por `enp1s0` con la IP del firewall |
-| Publicar web | `-t nat -A PREROUTING ... -j DNAT` | Las peticiones al puerto 80 que llegan al firewall se redirigen al servidor web |
+> Las dos últimas líneas del script original no se veían completas. Sustituye `<IP del servidor web>` y los `...` por los valores reales de tu script.
 
 **Conceptos clave**
 | Concepto | Significado |
 | --- | --- |
 | `-A` | Añadir una regla (*append*) |
-| `-t nat` | Usar la tabla de NAT |
 | `-s` / `-d` | Origen (*source*) / destino (*destination*) |
 | `-i` / `-o` | Interfaz de entrada / de salida |
-| `-p tcp --dport 80` | Protocolo TCP, puerto de destino 80 (HTTP) |
 | `-j` | Qué hacer con el paquete (*jump*): `ACCEPT`, `MASQUERADE`, `DNAT`... |
 | **SNAT / MASQUERADE** | Cambia la IP de origen para que las redes privadas salgan a Internet |
 | **DNAT** | Cambia la IP de destino para publicar un servidor interno |
+
+**Resumen del flujo**
+```text
+Salir a Internet:  máquina interna → firewall (POSTROUTING + MASQUERADE) → enp1s0 → Internet
+Publicar la web:   Kali → 10.0.0.1:80 → firewall (PREROUTING + DNAT) → servidor web (DMZ)
+```
+
+**Cómo comprobar que funciona**
+```bash
+sudo ./firewall.sh                # ejecutar el script
+sudo iptables -t nat -L -n -v     # ver las reglas de NAT cargadas
+cat /proc/sys/net/ipv4/ip_forward # debe dar 1 para que reenvíe tráfico
+```
+- Desde una máquina interna: `ping 8.8.8.8` para probar la salida a Internet.
+- Desde Kali: abrir `http://10.0.0.1` para probar la web publicada.
 
 > [!WARNING]
 > Con las tres políticas en `ACCEPT` el firewall todavía no filtra nada: solo hace NAT. Para que proteja, habría que cambiar `FORWARD` a `DROP` y permitir solo el tráfico necesario.
 
 > [!NOTE]
-> Para que la máquina reenvíe tráfico entre redes debe estar activado el reenvío de IP (`net.ipv4.ip_forward=1`). Comprueba que lo tienes activado.
+> Para que la máquina reenvíe tráfico entre redes debe estar activado el reenvío de IP (`net.ipv4.ip_forward=1`). Si `ip_forward` da `0`, no reenviará tráfico aunque las reglas estén bien.
 
 ---
 
