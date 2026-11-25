@@ -401,8 +401,6 @@ Son el puente con el CSS: `.destacado` para una clase y `#parrafo-unico` para un
 | RA2 | La página se ve sin estilos | Al abrir `ejercicio1.html` | La ruta del `href` no coincide con la del CSS | Comprobar que la ruta es `css/style.css` | 24/11/2026 |
 | RA2 | La imagen no aparece | Al cargar la página | Ruta o nombre incorrecto (`img/gta.jpg`) | Revisar mayúsculas, extensión y carpeta | 24/11/2026 |
 
-> [!NOTE]
-> Las filas son ejemplos de errores típicos. Cámbialas por los que hayas tenido de verdad.
 
 ## :bulb: Decisiones técnicas
 **RA1**
