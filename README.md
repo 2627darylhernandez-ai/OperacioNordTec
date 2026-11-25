@@ -47,7 +47,7 @@ enp3s0  enp4s0      enp5s0
 
 ### Configuración de red (netplan)
 
-![Archivo /etc/netplan/50-cloud-init.yaml abierto en nano](img/ra1_netplan.png)
+![Archivo /etc/netplan/50-cloud-init.yaml abierto en nano](img/yaml.png)
 
 **Qué es:** el archivo `50-cloud-init.yaml` (en `/etc/netplan/`), que se edita con el editor `nano`. Define las cinco tarjetas de red de la máquina `Lab_0373_firewall`. Tiene 27 líneas.
 
