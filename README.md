@@ -47,7 +47,7 @@ enp3s0  enp4s0      enp5s0
 
 ### Configuración de red (netplan)
 
-![Archivo /etc/netplan/50-cloud-init.yaml abierto en nano](img/yaml.png)
+![Archivo /etc/netplan/50-cloud-init.yaml abierto en nano](img/ra1_netplan.png)
 
 **Qué es:** el archivo `50-cloud-init.yaml` (en `/etc/netplan/`), que se edita con el editor `nano`. Define las cinco tarjetas de red de la máquina `Lab_0373_firewall`. Tiene 27 líneas.
 
@@ -136,19 +136,24 @@ Las IPs privadas no se pueden usar en Internet. Con `MASQUERADE`, las tres redes
 
 **5. Publicar el servidor web (DNAT)** (`# publicar el servidor web`)
 ```bash
-iptables -t nat -A PREROUTING -i enp3s0 -p tcp --dport 80 -j DNAT --to-destination <IP del servidor web>
-iptables -t nat -A PREROUTING -i enp3s0 -p tcp -d 10.0.0.1 --dport 80 -j DNAT ...
+iptables -t nat -A PREROUTING -i enp3s0 -p tcp --dport 80 -j DNAT --to-destination 192.168.10.10
+iptables -t nat -A PREROUTING -i enp3s0 -p tcp -d 10.0.0.1 --dport 80 -j DNAT --to-destination 192.168.10.10
 ```
 - `-A PREROUTING`: se aplica **nada más llegar el paquete**, antes de decidir a dónde enrutarlo.
 - `-i enp3s0`: solo para tráfico que entra por la interfaz de la red Kali.
 - `-p tcp --dport 80`: protocolo TCP al puerto 80 (HTTP, la web).
 - `-d 10.0.0.1` (segunda regla): además, solo si el destino es la IP del firewall en esa red.
-- `-j DNAT --to-destination`: cambia la IP de destino por la del servidor web, que está en la DMZ.
+- `-j DNAT --to-destination 192.168.10.10`: cambia la IP de destino por `192.168.10.10`, que es el servidor web, dentro de la DMZ (`192.168.10.0/24`).
 
-Así, cuando Kali pide la web a `10.0.0.1`, el firewall redirige la petición al servidor web real. Kali ve una sola IP y el servidor sigue dentro de la DMZ.
+**Qué hace cada regla**
+| Regla | Qué captura | Qué hace |
+| --- | --- | --- |
+| 1ª | Cualquier tráfico TCP al puerto 80 que entra por `enp3s0` | Lo redirige al servidor web `192.168.10.10` |
+| 2ª | Solo el tráfico TCP al puerto 80 que entra por `enp3s0` **y** va dirigido a `10.0.0.1` | Lo redirige al mismo servidor `192.168.10.10` |
 
-> [!NOTE]
-> Las dos últimas líneas del script original no se veían completas. Sustituye `<IP del servidor web>` y los `...` por los valores reales de tu script.
+Las dos reglas llevan al mismo destino. La segunda es más concreta, porque solo actúa si se pide la web a la IP del firewall (`10.0.0.1`).
+
+Así, cuando Kali pide la web a `10.0.0.1`, el firewall redirige la petición a `192.168.10.10`. Kali ve una sola IP y el servidor sigue dentro de la DMZ.
 
 **Conceptos clave**
 | Concepto | Significado |
